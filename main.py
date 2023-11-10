@@ -3,7 +3,7 @@ import requests
 import json
 import base64
 
-st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neuranet-ai.com/static/img/cover.png")
+st.set_page_config(page_title="NeuraNET API Plaground", page_icon="https://neuranet-ai.com/static/img/cover.png")
 
 st.sidebar.markdown("<h1 style='text-align: center;'>Settings</h1>", unsafe_allow_html=True)
 
