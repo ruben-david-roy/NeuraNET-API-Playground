@@ -51,7 +51,7 @@ The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a la
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
 - TTS: `POST https://neuranet-ai.com/api/v1/tts`
-- Moderation: `POST https://neuranet-ai.com/api/v1/moderation`
+- Moderation: `POST https://neuranet-ai.com/api/v1/moderationa`
 
 ## Error Handling
 - Checks for valid API key and non-empty inputs.
