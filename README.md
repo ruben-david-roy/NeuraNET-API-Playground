@@ -41,13 +41,17 @@ Run the app with the command: `streamlit run main.py`
 - **User Input**: Type your message for the chat model.
 - **Send Message**: Click to interact with the chat model.
 
-### TTS Models
+### TTS Model
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This can be used for completely free of charge.
+
+### Moderation Model
+The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. This can be used for completely free of charge.
 
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
 - TTS: `POST https://neuranet-ai.com/api/v1/tts`
+- Moderation: `POST https://neuranet-ai.com/api/v1/moderation`
 
 ## Error Handling
 - Checks for valid API key and non-empty inputs.
