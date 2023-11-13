@@ -1,6 +1,6 @@
 # NeuraNET API Playground
 
-![NeuraNET API Playground](https://www.reddit.com/media?url=https%3A%2F%2Fpreview.redd.it%2F5keb6e0ee20c1.png%3Fwidth%3D1884%26format%3Dpng%26auto%3Dwebp%26s%3D2e9e5247f2661932d9e5b12b6b3ef2c165c8159b)
+![NeuraNET API Playground](playground.png)
 
 ## Overview
 This Streamlit application provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat and image generation.
