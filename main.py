@@ -12,13 +12,13 @@ st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/st
 
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
 
-apikey = st.sidebar.text_input('Enter your NeuraNET API Key', type='password')
-if not apikey:
+NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password')
+if not NEURANET_API_KEY:
     st.error('Please enter your NeuraNET API Key.')
     st.stop()
 
 headers = {
-    'Authorization': f'Bearer {apikey}',
+    'Authorization': f'Bearer {NEURANET_API_KEY}',
     'Content-Type': 'application/json'
 }
 
