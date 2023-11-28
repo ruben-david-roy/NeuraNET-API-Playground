@@ -3,17 +3,13 @@
 ![NeuraNET API Playground](playground.png)
 
 ## Overview
-This Streamlit application provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat and image generation.
+This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat and image generation.
 
 ### Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
 - **Model Selection**: Users can choose between chat and image generation models.
 - **Dynamic Inputs**: Input fields adapt based on the model selected.
 - **Error Handling**: The app includes checks for missing API keys and empty inputs, along with error messages for user guidance.
-
-## Requirements
-- Streamlit
-- Requests
 
 ## Installation
 1. Install requirements with `pip install -r requirements.txt`
