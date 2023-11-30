@@ -17,16 +17,12 @@ This Streamlit application is the official [NeuraNET API Playground](https://pla
 ## Usage
 Run the app with the command: `streamlit run main.py`
 
-### Navigation
-- **Sidebar**: Use the sidebar to select AI model types, input API key, and provide additional inputs based on the model type.
-- **Main Area**: View the NeuraNET logo, title, and interact with the model-specific functionalities.
-
-### Image Model
+### Image Models
 - **Model Choice**: Select between 'Vinci Mini' and 'Vinci Max'.
 - **Prompt Input**: Enter a prompt for image generation.
 - **Generate Image**: Click to generate images based on the provided prompt.
 
-### Chat Model
+### Chat Models
 - **Model Choice**: Select between 'NeuraNET Lite' and 'NeuraNET Pro'.
 - **Instruct Prompt**: Optional field for additional instructions.
 - **User Input**: Type your message for the chat model.
