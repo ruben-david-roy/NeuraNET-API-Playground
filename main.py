@@ -61,14 +61,17 @@ if model_type == 'Image':
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models</p>", unsafe_allow_html=True)
 
-    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro'
+    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision'))
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro'
 
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
 
-    conversation = {}
+    history = []
     if instruct_input:
-        conversation['Instruct'] = instruct_input
+        history.append({
+            "sender": "instruct",
+            "content": instruct_input
+        })
 
     user_input = st.text_input("Type your message")
 
@@ -77,16 +80,18 @@ elif model_type == 'Chat':
             st.error("User input is empty. Please type your message.")
             st.stop()
 
-        if 'User' not in conversation:
-            conversation['User'] = user_input
-        else:
-            conversation['User'] = conversation['User'] + "\n" + user_input
+        history.append({
+            "sender": "user",
+            "content": user_input
+        })
 
         data = {
             'settings': {
                 'model': model
             },
-            'conversation': conversation
+            'conversation': {
+                'history': history
+            }
         }
 
         response = requests.post('https://neuranet-ai.com/api/v1/chat', headers=headers, data=json.dumps(data))
@@ -94,10 +99,10 @@ elif model_type == 'Chat':
         try:
             response_data = response.json()
             ai_response = response_data['choices'][0]['text']
-            if 'AI' not in conversation:
-                conversation['AI'] = ai_response
-            else:
-                conversation['AI'] = conversation['AI'] + "\n" + ai_response
+            history.append({
+                "sender": "assistant",
+                "content": ai_response
+            })
 
             st.write(ai_response)
         except KeyError:
