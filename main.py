@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import base64
 
 st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neuranet-ai.com/static/img/cover.png")
 
@@ -60,31 +61,42 @@ if model_type == 'Image':
 
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models</p>", unsafe_allow_html=True)
-
+    
     model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision'))
     model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro'
 
-    instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
+    image_data = None
+    if model == 'npro-vision':
+        uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
+        if uploaded_image is not None:
 
+            image_data = base64.b64encode(uploaded_image.getvalue()).decode()
+    
+    instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
+    
     history = []
     if instruct_input:
         history.append({
             "sender": "instruct",
             "content": instruct_input
         })
-
+    
     user_input = st.text_input("Type your message")
-
+    
     if st.button('Send Message'):
         if not user_input:
             st.error("User input is empty. Please type your message.")
             st.stop()
-
-        history.append({
+    
+        user_message = {
             "sender": "user",
             "content": user_input
-        })
-
+        }
+        if image_data:
+            user_message["image_url"] = f"data:image/png;base64,{image_data}"
+    
+        history.append(user_message)
+    
         data = {
             'settings': {
                 'model': model
@@ -93,9 +105,9 @@ elif model_type == 'Chat':
                 'history': history
             }
         }
-
+    
         response = requests.post('https://neuranet-ai.com/api/v1/chat', headers=headers, data=json.dumps(data))
-
+    
         try:
             response_data = response.json()
             ai_response = response_data['choices'][0]['text']
@@ -103,8 +115,9 @@ elif model_type == 'Chat':
                 "sender": "assistant",
                 "content": ai_response
             })
-
+    
             st.write(ai_response)
         except KeyError:
             st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
             st.stop()
+    
