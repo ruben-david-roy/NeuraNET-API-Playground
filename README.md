@@ -3,21 +3,36 @@
 ![NeuraNET API Playground](playground.png)
 
 ## Overview
-This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat and image generation.
+
+This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat, image generation, and chat with vision capabilities.
 
 ### Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
-- **Model Selection**: Users can choose between chat and image generation models.
+- **Model Selection**: Users can choose between chat, image generation, and chat with vision models.
 - **Dynamic Inputs**: Input fields adapt based on the model selected.
 - **Error Handling**: The app includes checks for missing API keys and empty inputs, along with error messages for user guidance.
 
 ## Installation
+
 1. Install requirements with `pip install -r requirements.txt`
 
 ## Usage
+
 Run the app with the command: `streamlit run main.py`
 
-### Image Models
+### Supported Models
+#### Chat Models
+- **NeuraNET Lite**: A free version of the NeuraNET chat AI, perfect for basic queries and conversations.
+- **NeuraNET Pro**: A premium chat model offering advanced understanding and more detailed responses.
+
+#### Image Models
+- **Vinci Mini**: A free version for basic image generation tasks.
+- **Vinci Max**: A premium image generation model delivering high-quality visual content.
+
+#### Chat with Vision Models
+- **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
+
+### Image Generation Models
 - **Model Choice**: Select between 'Vinci Mini' and 'Vinci Max'.
 - **Prompt Input**: Enter a prompt for image generation.
 - **Generate Image**: Click to generate images based on the provided prompt.
@@ -31,12 +46,14 @@ Run the app with the command: `streamlit run main.py`
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
+- Chat with Vision (Beta Testers Only): Contact support for more information.
 
 ## Error Handling
 - Checks for valid API key and non-empty inputs.
 - Provides user feedback on missing data or API access issues.
 
 ## License
+
 MIT LICENSE, see details [here](LICENSE)
 
 Developed by the NeuraNET Team
