@@ -7,10 +7,9 @@ st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neur
 
 st.sidebar.markdown("<h1 style='text-align: center;'>Settings</h1>", unsafe_allow_html=True)
 
-model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image'))
+model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', 'TTS'))
 
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
-
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
 
 NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password')
@@ -120,4 +119,49 @@ elif model_type == 'Chat':
         except KeyError:
             st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
             st.stop()
-    
+
+elif model_type == 'TTS':
+    st.markdown("<p style='text-align: center;'>NeuraNET Text-to-Speech</p>", unsafe_allow_html=True)
+
+    voices_response = requests.get('https://neuranet-ai.com/api/v1/tts/voices')
+    voices_data = voices_response.json()
+
+    types = set()
+    voices_by_type = {}
+    for voice_entry in voices_data:
+        voice_type = voice_entry['type']
+        voice_name = voice_entry['voice']
+        types.add(voice_type)
+        if voice_type in voices_by_type:
+            voices_by_type[voice_type].append(voice_name)
+        else:
+            voices_by_type[voice_type] = [voice_name]
+
+    selected_type = st.sidebar.selectbox('Select Type', [''] + sorted(types))
+    available_voices = voices_by_type[selected_type] if selected_type else [voice['voice'] for voice in voices_data]
+    selected_voice = st.sidebar.selectbox('Select Voice', available_voices, index=available_voices.index('Eric') if 'Eric' in available_voices else 0)
+
+    user_input = st.text_area("Enter the text for TTS")
+
+    if st.button('Generate Speech'):
+        if not user_input:
+            st.error("Text is empty. Please type your message.")
+            st.stop()
+
+        data = {
+            'settings': {
+                'type': selected_type if selected_type else 'en-US',
+                'voice': selected_voice
+            },
+            'say': user_input
+        }
+
+        response = requests.post('https://neuranet-ai.com/api/v1/tts', headers=headers, data=json.dumps(data))
+
+        try:
+            response_data = response.json()
+            audio_url = response_data['result'][0]['result-url']
+            st.audio(audio_url, format='audio/mp3', start_time=0)
+        except KeyError:
+            st.error('Invalid API Key or an error occurred while processing your request.')
+            st.stop()
