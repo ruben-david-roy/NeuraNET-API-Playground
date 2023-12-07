@@ -122,10 +122,10 @@ elif model_type == 'Chat':
 
 elif model_type == 'TTS':
     st.markdown("<p style='text-align: center;'>NeuraNET Text-to-Speech</p>", unsafe_allow_html=True)
-
+    
     voices_response = requests.get('https://neuranet-ai.com/api/v1/tts/voices')
     voices_data = voices_response.json()
-
+    
     types = set()
     voices_by_type = {}
     for voice_entry in voices_data:
@@ -137,17 +137,21 @@ elif model_type == 'TTS':
         else:
             voices_by_type[voice_type] = [voice_name]
 
-    selected_type = st.sidebar.selectbox('Select Type', [''] + sorted(types))
-    available_voices = voices_by_type[selected_type] if selected_type else [voice['voice'] for voice in voices_data]
+    types.discard('en-US')
+    selected_type = st.sidebar.selectbox('Select Type', ['en-US'] + sorted(types), index=0)
+    available_voices = voices_by_type[selected_type] if selected_type in voices_by_type else []
     selected_voice = st.sidebar.selectbox('Select Voice', available_voices, index=available_voices.index('Eric') if 'Eric' in available_voices else 0)
-
+    
     user_input = st.text_area("Enter the text for TTS")
-
+    
     if st.button('Generate Speech'):
         if not user_input:
             st.error("Text is empty. Please type your message.")
             st.stop()
-
+        if not selected_type:
+            st.error("Please select a type.")
+            st.stop()
+    
         data = {
             'settings': {
                 'type': selected_type if selected_type else 'en-US',
