@@ -43,10 +43,13 @@ Run the app with the command: `streamlit run main.py`
 - **User Input**: Type your message for the chat model.
 - **Send Message**: Click to interact with the chat model.
 
+### TTS Models
+More information coming soon.
+
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
-- Chat with Vision (Beta Testers Only): Contact support for more information.
+- TTS: `POST https://neuranet-ai.com/api/v1/tts`
 
 ## Error Handling
 - Checks for valid API key and non-empty inputs.
