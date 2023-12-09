@@ -60,32 +60,32 @@ if model_type == 'Image':
 
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models</p>", unsafe_allow_html=True)
-    
+
     model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Pro Web'))
     model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro' if model_alias == 'NeuraNET Pro' else 'nweb'
-    
+
     image_data = None
     if model == 'npro-vision':
         uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
         if uploaded_image is not None:
             image_data = base64.b64encode(uploaded_image.getvalue()).decode()
-    
+
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
-    
+
     history = []
     if instruct_input:
         history.append({
             "sender": "instruct",
             "content": instruct_input
         })
-    
+
     user_input = st.text_input("Type your message")
-    
+
     if st.button('Send Message'):
         if not user_input:
             st.error("User input is empty. Please type your message.")
             st.stop()
-    
+
         user_message = {
             "sender": "user",
             "content": user_input
@@ -97,35 +97,35 @@ elif model_type == 'Chat':
             try:
                 search_response = requests.get(f'https://search.neuranet-ai.com/search?query={user_input}&limit=5')
                 search_results = search_response.json()
-    
+
                 if search_results:
                     web_instruct_message = "You are a special version of the NeuraNET Pro model called 'NeuraNET Pro Web', you have the ability to search the internet. You will now receive the search results of what the user said. It will be formatted like this: 'Title - Source Link - Snippet'. Here are the search results for what the user said: \n"
                     for result in search_results:
                         web_instruct_message += f"{result['title']} - {result['link']} - {result['snippet']}\n"
                 else:
                     web_instruct_message = "Request failed or is empty."
-    
+
             except Exception as e:
                 web_instruct_message = "Request failed or is empty."
-    
+
             history.append({
                 "sender": "instruct",
                 "content": web_instruct_message
             })
-    
+
         history.append(user_message)
-    
+
         data = {
             'settings': {
-                'model': "npro"
+                'model': 'npro' if model == 'nweb' else model
             },
             'conversation': {
                 'history': history
             }
         }
-    
+
         response = requests.post('https://neuranet-ai.com/api/v1/chat', headers=headers, data=json.dumps(data))
-    
+
         try:
             response_data = response.json()
             ai_response = response_data['choices'][0]['text']
@@ -133,7 +133,7 @@ elif model_type == 'Chat':
                 "sender": "assistant",
                 "content": ai_response
             })
-    
+
             st.write(ai_response)
         except KeyError:
             st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
@@ -141,10 +141,10 @@ elif model_type == 'Chat':
 
 elif model_type == 'TTS':
     st.markdown("<p style='text-align: center;'>The NeuraNET Text-To-Speech (TTS) Model, referred to as NeuraNET Mint.</p>", unsafe_allow_html=True)
-    
+
     voices_response = requests.get('https://neuranet-ai.com/api/v1/tts/voices')
     voices_data = voices_response.json()
-    
+
     types = set()
     voices_by_type = {}
     for voice_entry in voices_data:
@@ -160,9 +160,9 @@ elif model_type == 'TTS':
     selected_type = st.sidebar.selectbox('Select Type', ['en-US'] + sorted(types), index=0)
     available_voices = voices_by_type[selected_type] if selected_type in voices_by_type else []
     selected_voice = st.sidebar.selectbox('Select Voice', available_voices, index=available_voices.index('Eric') if 'Eric' in available_voices else 0)
-    
+
     user_input = st.text_area("Enter the text for TTS")
-    
+
     if st.button('Generate Speech'):
         if not user_input:
             st.error("Text is empty. Please type your message.")
@@ -170,7 +170,7 @@ elif model_type == 'TTS':
         if not selected_type:
             st.error("Please select a type.")
             st.stop()
-    
+
         data = {
             'settings': {
                 'type': selected_type if selected_type else 'en-US',
