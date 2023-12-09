@@ -24,13 +24,11 @@ Run the app with the command: `streamlit run main.py`
 #### Chat Models
 - **NeuraNET Lite**: A free version of the NeuraNET chat AI, perfect for basic queries and conversations.
 - **NeuraNET Pro**: A premium chat model offering advanced understanding and more detailed responses.
+- **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
 #### Image Models
 - **Vinci Mini**: A free version for basic image generation tasks.
 - **Vinci Max**: A premium image generation model delivering high-quality visual content.
-
-#### Chat with Vision Models
-- **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
 ### Image Generation Models
 - **Model Choice**: Select between 'Vinci Mini' and 'Vinci Max'.
@@ -44,7 +42,7 @@ Run the app with the command: `streamlit run main.py`
 - **Send Message**: Click to interact with the chat model.
 
 ### TTS Models
-More information coming soon.
+The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This can be used for completely free of charge.
 
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
