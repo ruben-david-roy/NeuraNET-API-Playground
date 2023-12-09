@@ -61,14 +61,13 @@ if model_type == 'Image':
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models</p>", unsafe_allow_html=True)
     
-    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro'
-
+    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Web'))
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro' if model_alias == 'NeuraNET Pro' else 'nweb'
+    
     image_data = None
     if model == 'npro-vision':
         uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
         if uploaded_image is not None:
-
             image_data = base64.b64encode(uploaded_image.getvalue()).decode()
     
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
@@ -93,12 +92,32 @@ elif model_type == 'Chat':
         }
         if image_data:
             user_message["image_url"] = f"data:image/png;base64,{image_data}"
+
+        if model == 'nweb':
+            try:
+                search_response = requests.get(f'https://search.neuranet-ai.com/search?query={user_input}&limit=5')
+                search_results = search_response.json()
+    
+                if search_results:
+                    web_instruct_message = "You are a special version of the NeuraNET Pro model called 'NeuraNET Pro Web', you have the ability to search the internet. You will now receive the search results of what the user said. It will be formatted like this: 'Title - Source Link - Snippet'. Here are the search results for what the user said: \n"
+                    for result in search_results:
+                        web_instruct_message += f"{result['title']} - {result['link']} - {result['snippet']}\n"
+                else:
+                    web_instruct_message = "Request failed or is empty."
+    
+            except Exception as e:
+                web_instruct_message = "Request failed or is empty."
+    
+            history.append({
+                "sender": "instruct",
+                "content": web_instruct_message
+            })
     
         history.append(user_message)
     
         data = {
             'settings': {
-                'model': model
+                'model': "npro"
             },
             'conversation': {
                 'history': history
@@ -121,7 +140,7 @@ elif model_type == 'Chat':
             st.stop()
 
 elif model_type == 'TTS':
-    st.markdown("<p style='text-align: center;'>NeuraNET Text-to-Speech</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>The NeuraNET Text-To-Speech (TTS) Model, referred to as NeuraNET Mint.</p>", unsafe_allow_html=True)
     
     voices_response = requests.get('https://neuranet-ai.com/api/v1/tts/voices')
     voices_data = voices_response.json()
