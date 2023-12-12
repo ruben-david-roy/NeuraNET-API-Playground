@@ -45,7 +45,7 @@ Run the app with the command: `streamlit run main.py`
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This can be used for completely free of charge.
 
 ### Moderation Model
-The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. This can be used for completely free of charge.
+The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. The moderation model has 2 variations: Default and Unbiased. This can be used for completely free of charge.
 
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
