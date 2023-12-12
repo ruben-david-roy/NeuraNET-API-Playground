@@ -27,7 +27,7 @@ Run the app with the command: `streamlit run main.py`
 - **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
 #### Image Models
-- **Vinci Mini**: A free version for basic image generation tasks.
+- **Vinci Mini**: A free and fast version for basic image generation tasks.
 - **Vinci Max**: A premium image generation model delivering high-quality visual content.
 
 ### Image Generation Models
@@ -42,10 +42,10 @@ Run the app with the command: `streamlit run main.py`
 - **Send Message**: Click to interact with the chat model.
 
 ### TTS Model
-The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This can be used for completely free of charge.
+The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
 
 ### Moderation Model
-The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. The moderation model has 2 variations: Default and Unbiased. This can be used for completely free of charge.
+The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. The moderation model has 2 variations: Default and Unbiased. This model and API can be used for completely free of charge.
 
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
