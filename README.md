@@ -55,6 +55,6 @@ The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a la
 
 ## License
 
-MIT LICENSE, see details [here](LICENSE)
+The NeuraNET API Playground is open-source and is under the MIT License. See the [LICENSE](LICENSE) for more information.
 
 Developed by the NeuraNET Team
