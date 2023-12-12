@@ -8,7 +8,7 @@ This Streamlit application is the official [NeuraNET API Playground](https://pla
 
 ### Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
-- **Model Selection**: Users can choose between chat, image generation, and chat with vision models.
+- **Model Selection**: Users can choose between chat, chat with vision, image generation, text to speech and moderation models.
 - **Dynamic Inputs**: Input fields adapt based on the model selected.
 - **Error Handling**: The app includes checks for missing API keys and empty inputs, along with error messages for user guidance.
 
@@ -52,10 +52,6 @@ The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a la
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
 - TTS: `POST https://neuranet-ai.com/api/v1/tts`
 - Moderation: `POST https://neuranet-ai.com/api/v1/moderation`
-
-## Error Handling
-- Checks for valid API key and non-empty inputs.
-- Provides user feedback on missing data or API access issues.
 
 ## License
 
