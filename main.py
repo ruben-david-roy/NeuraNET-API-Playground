@@ -3,11 +3,11 @@ import requests
 import json
 import base64
 
-st.set_page_config(page_title="NeuraNET API Plaground", page_icon="https://neuranet-ai.com/static/img/cover.png")
+st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neuranet-ai.com/static/img/cover.png")
 
 st.sidebar.markdown("<h1 style='text-align: center;'>Settings</h1>", unsafe_allow_html=True)
 
-model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', 'TTS'))
+model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', 'TTS', 'Moderation'))
 
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
@@ -23,7 +23,7 @@ headers = {
 }
 
 if model_type == 'Image':
-    st.markdown("<p style='text-align: center;'>NeuraNET Diffusion (Image Generation) Models</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>The NeuraNET Text-To-Image (Diffusion) Models, referred to as Vinci.</p>", unsafe_allow_html=True)
 
     model_alias = st.sidebar.selectbox('Choose a model', ('Vinci Mini', 'Vinci Max'))
     model = 'vinci-mini' if model_alias == 'Vinci Mini' else 'vinci-max'
@@ -187,4 +187,39 @@ elif model_type == 'TTS':
             st.audio(audio_url, format='audio/mp3', start_time=0)
         except KeyError:
             st.error('Invalid API Key or an error occurred while processing your request.')
+            st.stop()
+
+elif model_type == 'Moderation':
+    st.markdown("<p style='text-align: center;'>The NeuraNET Moderation Model, referred to as NeuraNET Sentinel.</p>", unsafe_allow_html=True)
+    model_type = st.sidebar.selectbox('Choose a model', ('default', 'unbiased'))
+
+    user_input = st.text_area("Enter text to Moderate")
+
+    if st.button('Moderate Text'):
+        if not user_input:
+            st.error("Text is empty. Please enter text to moderate.")
+            st.stop()
+
+        response = requests.post(
+            'https://neuranet-ai.com/api/v1/moderation',
+            headers={
+                'Authorization': f'Bearer {NEURANET_API_KEY}',
+                'Content-Type': 'application/json'
+            },
+            data=json.dumps({
+                'message': user_input,
+                'model_type': model_type
+            })
+        )
+
+
+        if response.ok:
+            response_data = response.json()
+        
+            sorted_data = dict(sorted(response_data.items(), key=lambda item: int(item[1].rstrip('%')), reverse=True))
+
+            for category, percentage in sorted_data.items():
+                st.markdown(f"**{category.replace('_', ' ').title()}**: {percentage}", unsafe_allow_html=True)
+        else:
+            st.error("An error occurred during the request.")
             st.stop()
