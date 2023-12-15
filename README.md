@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ## Usage
 
 Run the app with the command:
-```
+```bash
 streamlit run main.py
 ```
 
