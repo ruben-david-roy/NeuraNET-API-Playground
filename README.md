@@ -14,11 +14,13 @@ This Streamlit application is the official [NeuraNET API Playground](https://pla
 
 ## Installation
 
-1. Install requirements with `pip install -r requirements.txt`
+1. Install requirements with:
+```pip install -r requirements.txt```
 
 ## Usage
 
-Run the app with the command: `streamlit run main.py`
+Run the app with the command:
+```streamlit run main.py```
 
 ### Supported Models
 #### Chat Models
