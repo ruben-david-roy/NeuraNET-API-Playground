@@ -15,7 +15,7 @@ This Streamlit application is the official [NeuraNET API Playground](https://pla
 ## Installation
 
 1. Install requirements with:
-```bash
+```
 pip install -r requirements.txt
 ```
 
