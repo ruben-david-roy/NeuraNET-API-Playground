@@ -22,7 +22,9 @@ pip install -r requirements.txt
 ## Usage
 
 Run the app with the command:
-```streamlit run main.py```
+```
+streamlit run main.py
+```
 
 ### Supported Models
 #### Chat Models
