@@ -4,7 +4,7 @@
 
 ## Overview
 
-This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat (and with vision) and image generation.
+This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat (and with vision), image generation, TTS and Moderation.
 
 ### Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
