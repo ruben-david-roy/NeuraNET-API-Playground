@@ -28,6 +28,8 @@ if model_type == 'Image':
     model_alias = st.sidebar.selectbox('Choose a model', ('Vinci Mini', 'Vinci Max'))
     model = 'vinci-mini' if model_alias == 'Vinci Mini' else 'vinci-max'
 
+    dimensions = st.sidebar.selectbox('Image dimensions', ('square', 'portrait', 'landscape'))
+
     user_input = st.text_input("Type your prompt here")
 
     if st.button('Generate Image'):
@@ -38,7 +40,8 @@ if model_type == 'Image':
         data = {
             'content': {
                 'model': model,
-                'prompt': user_input
+                'prompt': user_input,
+                'size': dimensions
             }
         }
 
@@ -59,7 +62,7 @@ if model_type == 'Image':
             st.stop()
 
 elif model_type == 'Chat':
-    st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models - Chat History is not supported here.</p>", unsafe_allow_html=True)
 
     model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Pro Web'))
     model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro' if model_alias == 'NeuraNET Pro' else 'nweb'
