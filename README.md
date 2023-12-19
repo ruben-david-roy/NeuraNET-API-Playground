@@ -41,12 +41,6 @@ streamlit run main.py
 - **Prompt Input**: Enter a prompt for image generation.
 - **Generate Image**: Click to generate images based on the provided prompt.
 
-### Chat Models
-- **Model Choice**: Select between 'NeuraNET Lite' and 'NeuraNET Pro'.
-- **Instruct Prompt**: Optional field for additional instructions.
-- **User Input**: Type your message for the chat model.
-- **Send Message**: Click to interact with the chat model.
-
 ### TTS Model
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
 
