@@ -36,11 +36,6 @@ streamlit run main.py
 - **Vinci Mini**: A free and fast version for basic image generation tasks.
 - **Vinci Max**: A premium image generation model delivering high-quality visual content.
 
-### Image Generation Models
-- **Model Choice**: Select between 'Vinci Mini' and 'Vinci Max'.
-- **Prompt Input**: Enter a prompt for image generation.
-- **Generate Image**: Click to generate images based on the provided prompt.
-
 ### TTS Model
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
 
