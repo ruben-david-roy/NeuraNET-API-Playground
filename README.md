@@ -32,7 +32,7 @@ streamlit run main.py
 - **NeuraNET Pro**: A premium chat model offering advanced understanding and more detailed responses.
 - **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
-#### Image Models
+#### Image Generation Models
 - **Vinci Mini**: A free and fast version for basic image generation tasks.
 - **Vinci Max**: A premium image generation model delivering high-quality visual content.
 
