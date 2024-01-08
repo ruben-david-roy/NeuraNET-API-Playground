@@ -12,7 +12,7 @@ model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', '
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
 
-NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password')
+NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password', autocomplete='off')
 if not NEURANET_API_KEY:
     st.error('Please enter your NeuraNET API Key.')
     st.stop()
