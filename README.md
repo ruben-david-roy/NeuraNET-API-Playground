@@ -6,7 +6,7 @@
 
 This Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat (and with vision), image generation, TTS (Text-To-Speech) and Moderation.
 
-### Features
+## Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
 - **Model Selection**: Users can choose between chat, chat with vision, image generation, text to speech and moderation models.
 - **Dynamic Inputs**: Input fields adapt based on the model selected.
@@ -26,13 +26,13 @@ Run the app with the command:
 streamlit run main.py
 ```
 
-### Supported Models
-#### Chat Models
+## Supported Models
+### Chat Models
 - **NeuraNET Lite**: A free version of the NeuraNET chat AI, perfect for basic queries and conversations.
 - **NeuraNET Pro**: A premium chat model offering advanced understanding and more detailed responses.
 - **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
-#### Image Generation Models
+### Image Generation Models
 - **Vinci Mini**: A free and fast version for basic image generation tasks.
 - **Vinci Max**: A premium image generation model delivering high-quality visual content.
 
