@@ -65,10 +65,10 @@ elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models - Chat History is not supported here.</p>", unsafe_allow_html=True)
 
     model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Pro Web'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-64k' if model_alias == 'NeuraNET Pro Vision' else 'neuranet-hyper-64k' if model_alias == 'NeuraNET Pro' else 'neuranet-hyper-web-64k'
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-5x185b' if model_alias == 'NeuraNET Pro Vision' else 'neuranet-hyper-5x185b' if model_alias == 'NeuraNET Pro' else 'neuranet-hyper-web-5x185b'
 
     image_data = None
-    if model == 'neuranet-hyper-vision-64k':
+    if model == 'neuranet-hyper-vision-5x185b':
         uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
         if uploaded_image is not None:
             image_data = base64.b64encode(uploaded_image.getvalue()).decode()
@@ -120,7 +120,7 @@ elif model_type == 'Chat':
 
         data = {
             'settings': {
-                'model': 'neuranet-hyper-64k' if model == 'neuranet-hyper-web-64k' else model
+                'model': 'neuranet-hyper-5x185b' if model == 'neuranet-hyper-web-5x185b' else model
             },
             'conversation': {
                 'history': history
