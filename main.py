@@ -7,7 +7,7 @@ st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neur
 
 st.sidebar.markdown("<h1 style='text-align: center;'>Settings</h1>", unsafe_allow_html=True)
 
-model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', 'TTS', 'Moderation'))
+model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', 'TTS'))
 
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
@@ -65,10 +65,10 @@ elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models - Chat History is not supported here.</p>", unsafe_allow_html=True)
 
     model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Pro Web'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'npro-vision' if model_alias == 'NeuraNET Pro Vision' else 'npro' if model_alias == 'NeuraNET Pro' else 'nweb'
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-64k' if model_alias == 'NeuraNET Pro Vision' else 'neuranet-hyper-64k' if model_alias == 'NeuraNET Pro' else 'neuranet-hyper-web-64k'
 
     image_data = None
-    if model == 'npro-vision':
+    if model == 'neuranet-hyper-vision-64k':
         uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
         if uploaded_image is not None:
             image_data = base64.b64encode(uploaded_image.getvalue()).decode()
@@ -120,7 +120,7 @@ elif model_type == 'Chat':
 
         data = {
             'settings': {
-                'model': 'npro' if model == 'nweb' else model
+                'model': 'neuranet-hyper-64k' if model == 'neuranet-hyper-web-64k' else model
             },
             'conversation': {
                 'history': history
@@ -190,39 +190,4 @@ elif model_type == 'TTS':
             st.audio(audio_url, format='audio/mp3', start_time=0)
         except KeyError:
             st.error('Invalid API Key or an error occurred while processing your request.')
-            st.stop()
-
-elif model_type == 'Moderation':
-    st.markdown("<p style='text-align: center;'>The NeuraNET Moderation Model, referred to as NeuraNET Sentinel.</p>", unsafe_allow_html=True)
-    model_type = st.sidebar.selectbox('Choose a model', ('default', 'unbiased'))
-
-    user_input = st.text_area("Enter text to Moderate")
-
-    if st.button('Moderate Text'):
-        if not user_input:
-            st.error("Text is empty. Please enter text to moderate.")
-            st.stop()
-
-        response = requests.post(
-            'https://neuranet-ai.com/api/v1/moderation',
-            headers={
-                'Authorization': f'Bearer {NEURANET_API_KEY}',
-                'Content-Type': 'application/json'
-            },
-            data=json.dumps({
-                'message': user_input,
-                'model_type': model_type
-            })
-        )
-
-
-        if response.ok:
-            response_data = response.json()
-        
-            sorted_data = dict(sorted(response_data.items(), key=lambda item: int(item[1].rstrip('%')), reverse=True))
-
-            for category, percentage in sorted_data.items():
-                st.markdown(f"**{category.replace('_', ' ').title()}**: {percentage}", unsafe_allow_html=True)
-        else:
-            st.error("An error occurred during the request.")
             st.stop()
