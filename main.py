@@ -64,8 +64,8 @@ if model_type == 'Image':
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models - Chat History is not supported here.</p>", unsafe_allow_html=True)
 
-    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Pro', 'NeuraNET Pro Vision', 'NeuraNET Pro Web'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-5x185b' if model_alias == 'NeuraNET Pro Vision' else 'neuranet-hyper-5x185b' if model_alias == 'NeuraNET Pro' else 'neuranet-hyper-web-5x185b'
+    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Hyper', 'NeuraNET Hyper Vision', 'NeuraNET Hyper Web'))
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-5x185b' if model_alias == 'NeuraNET Hyper Vision' else 'neuranet-hyper-5x185b' if model_alias == 'NeuraNET Hyper' else 'neuranet-hyper-web-5x185b'
 
     image_data = None
     if model == 'neuranet-hyper-vision-5x185b':
@@ -102,7 +102,7 @@ elif model_type == 'Chat':
                 search_results = search_response.json()
 
                 if search_results:
-                    web_instruct_message = "You are a special version of the NeuraNET Pro model called 'NeuraNET Pro Web', you have the ability to indirectly search the internet. You will now receive the search results of what the user said. It will be formatted like this: 'Title - Source Link - Snippet'.You will receive user queries and present the corresponding search results in this format. When creating a response to the user, do not give the user the raw search results, tell it to them in a friendly, informative, and casual way. Here's the user's query: \n\n"
+                    web_instruct_message = "You are a special version of the NeuraNET Hyper model called 'NeuraNET Hyper Web', you have the ability to indirectly search the internet. You will now receive the search results of what the user said. It will be formatted like this: 'Title - Source Link - Snippet'.You will receive user queries and present the corresponding search results in this format. When creating a response to the user, do not give the user the raw search results, tell it to them in a friendly, informative, and casual way. Here's the user's query: \n\n"
                     for result in search_results:
                         web_instruct_message += f"{result['title']} - {result['link']} - {result['snippet']}\n"
                 else:
