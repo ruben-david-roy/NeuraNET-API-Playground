@@ -4,11 +4,11 @@
 
 ## Overview
 
-This open source Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat (and with vision), image generation, TTS (Text-To-Speech) and Moderation.
+This open source Streamlit application is the official [NeuraNET API Playground](https://playground.neuranet-ai.com) and provides an interactive interface to the NeuraNET API, allowing users to access and utilize AI models for chat (and with vision), image generation, and TTS (Text-To-Speech).
 
 ## Features
 - **API Authentication**: Secure API key input for accessing NeuraNET services.
-- **Model Selection**: Users can choose between chat, chat with vision, image generation, text to speech and moderation models.
+- **Model Selection**: Users can choose between chat, chat with vision, image generation and text to speech.
 - **Dynamic Inputs**: Input fields adapt based on the model selected.
 - **Error Handling**: The app includes checks for missing API keys and empty inputs, along with error messages for user guidance.
 
@@ -29,8 +29,8 @@ streamlit run main.py
 ## Supported Models
 ### Chat Models
 - **NeuraNET Lite**: A free version of the NeuraNET chat AI, perfect for basic queries and conversations.
-- **NeuraNET Pro**: A premium chat model offering advanced understanding and more detailed responses.
-- **NeuraNET Pro Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
+- **NeuraNET Hyper**: A premium chat model offering advanced understanding and more detailed responses.
+- **NeuraNET Hyper Vision**: Only accessible to paying beta testers, this model combines the capabilities of advanced chat functionalities with vision to interpret and discuss images.
 
 ### Image Generation Models
 - **Vinci Mini**: A free and fast version for basic image generation tasks.
@@ -39,14 +39,10 @@ streamlit run main.py
 ### TTS Model
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
 
-### Moderation Model
-The NeuraNET Text Moderation AI Model, referred to as NeuraNET Sentinel, is a large moderation model for moderating text. The moderation model has 2 variations: Default and Unbiased. This model and API can be used for completely free of charge.
-
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
 - TTS: `POST https://neuranet-ai.com/api/v1/tts`
-- Moderation: `POST https://neuranet-ai.com/api/v1/moderation`
 
 ## License
 
