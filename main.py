@@ -93,7 +93,7 @@ elif model_type == 'Chat':
         if uploaded_image is not None:
             saved_file_path = save_uploaded_file(uploaded_image)
             if saved_file_path:
-                image_url = f'http://playground.neuranet-ai.com/{saved_file_path}'
+                image_url = f'http://neuranet-api-playground.streamlit.app/{saved_file_path}'
 
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
 
