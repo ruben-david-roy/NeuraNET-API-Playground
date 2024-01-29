@@ -2,6 +2,9 @@ import streamlit as st
 import requests
 import json
 import base64
+import os
+import random
+import string
 
 st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neuranet-ai.com/static/img/cover.png")
 
@@ -11,6 +14,21 @@ model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', '
 
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
+
+def generate_random_string(length=6):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))
+
+def save_uploaded_file(uploaded_file):
+    try:
+        file_ext = os.path.splitext(uploaded_file.name)[1]
+        file_name = f"host/{generate_random_string()}{file_ext}"
+        with open(file_name, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        return file_name
+    except Exception as e:
+        st.error(f"Error saving file: {e}")
+        return None
 
 NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password', autocomplete='off')
 if not NEURANET_API_KEY:
@@ -71,7 +89,9 @@ elif model_type == 'Chat':
     if model == 'neuranet-hyper-vision-5x185b':
         uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
         if uploaded_image is not None:
-            image_data = base64.b64encode(uploaded_image.getvalue()).decode()
+            saved_file_path = save_uploaded_file(uploaded_image)
+            if saved_file_path:
+                image_url = f'http://playground.neuranet-ai.com/{saved_file_path}'
 
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
 
