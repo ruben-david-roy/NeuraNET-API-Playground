@@ -21,6 +21,8 @@ def generate_random_string(length=6):
 
 def save_uploaded_file(uploaded_file):
     try:
+        os.makedirs('host', exist_ok=True)
+
         file_ext = os.path.splitext(uploaded_file.name)[1]
         file_name = f"host/{generate_random_string()}{file_ext}"
         with open(file_name, "wb") as f:
