@@ -94,7 +94,7 @@ elif model_type == 'Chat':
             "content": user_input
         }
         if image_data:
-            user_message["image_url"] = f"data:image/png;base64,{image_data}"
+            user_message["image"] = f"data:image/png;base64,{image_data}"
 
         if model == 'nweb':
             try:
