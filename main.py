@@ -132,14 +132,10 @@ elif model_type == 'Chat':
         try:
             response_data = response.json()
             ai_response = response_data['choices'][0]['text']
-            history.append({
-                "sender": "assistant",
-                "content": ai_response
-            })
 
             st.write("Payload being sent:", data)
         except KeyError:
-            st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
+            st.write("Payload being sent:", data)
             st.stop()
 
 elif model_type == 'TTS':
