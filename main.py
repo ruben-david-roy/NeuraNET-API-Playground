@@ -1,10 +1,6 @@
 import streamlit as st
 import requests
 import json
-import base64
-import os
-import random
-import string
 
 st.set_page_config(page_title="NeuraNET API Playground", page_icon="https://neuranet-ai.com/static/img/cover.png")
 
@@ -14,23 +10,6 @@ model_type = st.sidebar.selectbox('Which Type of AI Model?', ('Chat', 'Image', '
 
 st.markdown("<p style='text-align: center;'><img src='https://neuranet-ai.com/static/img/cover.png' style='width: 20%; height: auto;'></p>", unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>NeuraNET API Playground</h1>", unsafe_allow_html=True)
-
-def generate_random_string(length=6):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))
-
-def save_uploaded_file(uploaded_file):
-    try:
-        os.makedirs('host', exist_ok=True)
-
-        file_ext = os.path.splitext(uploaded_file.name)[1]
-        file_name = f"host/{generate_random_string()}{file_ext}"
-        with open(file_name, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        return file_name
-    except Exception as e:
-        st.error(f"Error saving file: {e}")
-        return None
 
 NEURANET_API_KEY = st.sidebar.text_input('Enter your NeuraNET API Key', type='password', autocomplete='off')
 if not NEURANET_API_KEY:
@@ -74,7 +53,7 @@ if model_type == 'Image':
                 image_url = response_data['result'][0]['result-url']
                 st.image(image_url, caption='Generated Image', use_column_width=True)
             else:
-                st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
+                st.error('An error occurred, possibly due to an invalid API key, server issues, or an overly long message.')
                 st.stop()
 
         except ValueError:
@@ -83,41 +62,31 @@ if model_type == 'Image':
 
 elif model_type == 'Chat':
     st.markdown("<p style='text-align: center;'>NeuraNET Text Generation (Chat) Models - Chat History is not supported here.</p>", unsafe_allow_html=True)
-
-    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Hyper', 'NeuraNET Hyper Vision', 'NeuraNET Hyper Web'))
-    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-vision-5x185b' if model_alias == 'NeuraNET Hyper Vision' else 'neuranet-hyper-5x185b' if model_alias == 'NeuraNET Hyper' else 'neuranet-hyper-web-5x185b'
-
-    image_data = None
-    if model == 'neuranet-hyper-vision-5x185b':
-        uploaded_image = st.file_uploader("Upload an Image (PNG or JPEG)", type=["png", "jpg", "jpeg"])
-        if uploaded_image is not None:
-            saved_file_path = save_uploaded_file(uploaded_image)
-            if saved_file_path:
-                image_url = f'http://neuranet-api-playground.streamlit.app/{saved_file_path}'
+    
+    model_alias = st.sidebar.selectbox('Choose a model', ('NeuraNET Lite', 'NeuraNET Hyper', 'NeuraNET Hyper Web'))
+    model = 'nlite' if model_alias == 'NeuraNET Lite' else 'neuranet-hyper-5x185b' if model_alias == 'NeuraNET Hyper' else 'neuranet-hyper-web-5x185b'
 
     instruct_input = st.sidebar.text_area("Instruct Prompt (Optional)", height=300)
-
+    
     history = []
     if instruct_input:
         history.append({
             "sender": "instruct",
             "content": instruct_input
         })
-
+    
     user_input = st.text_input("Type your message")
-
+    
     if st.button('Send Message'):
         if not user_input:
             st.error("User input is empty. Please type your message.")
             st.stop()
-
+    
         user_message = {
             "sender": "user",
             "content": user_input
         }
-        if image_data:
-            user_message["image"] = f"data:image/png;base64,{image_data}"
-
+        
         if model == 'nweb':
             try:
                 search_response = requests.get(f'https://search.neuranet-ai.com/search?query={user_input}&limit=5')
@@ -154,9 +123,9 @@ elif model_type == 'Chat':
         try:
             response_data = response.json()
             ai_response = response_data['choices'][0]['text']
-            st.write(f"{ai_response} Payload: {data}")
+            st.write(ai_response)
         except KeyError:
-            st.error('Invalid API Key or you are trying to use a model that you do not have access to.')
+            st.error(f'An error occurred, possibly due to an invalid API key, server issues, or an overly long message.')
             st.stop()
 
 elif model_type == 'TTS':
@@ -206,5 +175,5 @@ elif model_type == 'TTS':
             audio_url = response_data['result'][0]['result-url']
             st.audio(audio_url, format='audio/mp3', start_time=0)
         except KeyError:
-            st.error('Invalid API Key or an error occurred while processing your request.')
+            st.error('An error occurred, possibly due to an invalid API key, server issues, or an overly long message.')
             st.stop()
