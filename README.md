@@ -36,7 +36,7 @@ streamlit run main.py
 - **Vinci XL**: A premium image generation model delivering high-quality visual content.
 
 ### TTS Model
-The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
+The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options.
 
 ## API Endpoints
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
