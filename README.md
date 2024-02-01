@@ -32,8 +32,8 @@ streamlit run main.py
 - **NeuraNET Hyper**: A premium chat model offering advanced understanding and more detailed responses.
 
 ### Image Generation Models
-- **Vinci Mini**: A free and fast version for basic image generation tasks.
-- **Vinci Max**: A premium image generation model delivering high-quality visual content.
+- **Vinci SM**: A fast and cheaper version for basic image generation tasks.
+- **Vinci XL**: A premium image generation model delivering high-quality visual content.
 
 ### TTS Model
 The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array of 300 distinct voice options. This model and API can be used for completely free of charge.
