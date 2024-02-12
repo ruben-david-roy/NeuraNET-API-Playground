@@ -27,8 +27,6 @@ if model_type == 'Image':
     model_alias = st.sidebar.selectbox('Choose a model', ('Vinci Mini', 'Vinci Max'))
     model = 'vinci-mini' if model_alias == 'Vinci Mini' else 'vinci-max'
 
-    dimensions = st.sidebar.selectbox('Image dimensions', ('square', 'portrait', 'landscape'))
-
     user_input = st.text_input("Type your prompt here")
 
     if st.button('Generate Image'):
@@ -39,8 +37,7 @@ if model_type == 'Image':
         data = {
             'content': {
                 'model': model,
-                'prompt': user_input,
-                'size': dimensions
+                'prompt': user_input
             }
         }
 
