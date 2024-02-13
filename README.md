@@ -42,7 +42,7 @@ The NeuraNET Text-to-Speech AI Model, referred to as NeuraNET Mint, has an array
 - Image Generation: `POST https://neuranet-ai.com/api/v1/image`
 - Chat: `POST https://neuranet-ai.com/api/v1/chat`
 - TTS: `POST https://neuranet-ai.com/api/v1/tts`
-
+- my balls itch
 ## License
 
 The NeuraNET API Playground is open-source and is under the MIT License. See the [LICENSE](LICENSE) for more information.
